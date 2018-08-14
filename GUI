@@ -117,6 +117,144 @@ $label8.text = "Account creation date: " + $CR.created
 
 
 
+function Move-HCASite ($dropdown)
+{
+
+
+
+
+if ($DropDown -eq "Greystanes")
+{
+
+Add-ADGroupMember -Identity 7c377404-9b9c-40e6-a2ac-95ec76b95870 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-SYDFPRS1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Adelaide")
+{
+
+Add-ADGroupMember -Identity 01728730-a4c1-4de2-bd0d-0e033675324a -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-ADL-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Albury")
+{
+
+Add-ADGroupMember -Identity 6a02546e-222a-4ba9-a1ba-49bec2fa6455 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-ALB-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Brisbane")
+{
+
+Add-ADGroupMember -Identity a310faea-1d35-4e3d-8baa-7190e0df93ac -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-BRI-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Bunbury")
+{
+
+Add-ADGroupMember -Identity 6d3fd786-5faa-477a-bb5e-709398c618c8 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-BUN-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Canberra")
+{
+
+Add-ADGroupMember -Identity e7617829-f173-496f-87b8-063a2046aa8f -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-REV-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Darwin")
+{
+
+Add-ADGroupMember -Identity 119a2082-a95b-4ede-b77e-6c38fdb937bb -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-DAR-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Emerald")
+{
+
+Add-ADGroupMember -Identity fff18d5f-a817-476c-930a-e364a2c44ca9 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-EML-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Gunnedah")
+{
+
+Add-ADGroupMember -Identity 32334ddb-1c9a-434a-8fd3-67db01c707b4 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-MUS-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Kalgoorlie")
+{
+
+Add-ADGroupMember -Identity 91ae0826-6c06-4336-9480-f5e492e82c4a -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-KAL-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Launceston")
+{
+
+Add-ADGroupMember -Identity fc2dbcac-9868-4a1a-9b12-a4c954889b9c -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-LAU-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Mackay")
+{
+
+Add-ADGroupMember -Identity e138a0f5-a934-4cba-b8d0-d9c9a129401c -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-MCK-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Melbourne")
+{
+
+Add-ADGroupMember -Identity dc5104c3-9268-4829-8313-fbb7e0e3c51e -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-MEL-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Muswellbrook")
+{
+
+Add-ADGroupMember -Identity 5757a7fd-2668-4633-9fbd-cdaeaa2a28e7 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-MUS-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Newcastle")
+{
+
+Add-ADGroupMember -Identity 7e78c631-240a-4144-a6ca-b9f830379de5 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-NEW-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Perth")
+{
+
+Add-ADGroupMember -Identity 89f37684-cd78-43b6-b547-cc25cde2f122 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-PER-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Port Hedland")
+{
+
+Add-ADGroupMember -Identity 50b6b502-430e-4956-8a43-9bea87f8243f -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-PER-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Somerton")
+{
+
+Add-ADGroupMember -Identity 23f1179a-29ea-4524-a7d6-bebf558d28d7 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-SOM-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Revesby")
+{
+
+Add-ADGroupMember -Identity 149bfd89-4f8e-4932-9ba6-6913732ef369 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-REV-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Tom Price")
+{
+
+Add-ADGroupMember -Identity 291296ad-b426-4686-b4c0-fdcc293979c1 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-PER-FSRV1-Home -Members $textbox1.text
+}
+if ($DropDown -eq "Townsville")
+{
+
+Add-ADGroupMember -Identity ec27144a-0f98-4fce-bf18-f244618d2be6 -members $textbox1.text
+Add-ADGroupMember -Identity GLS-U-TWN-FSRV1-Home -Members $textbox1.text
+}
+
+} 
+
+
+
+
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -292,7 +430,15 @@ $ComboBox1.height                = 20
 $ComboBox1.location              = New-Object System.Drawing.Point(469,41)
 $ComboBox1.Font                  = 'Microsoft Sans Serif,10'
 
-$Form.controls.AddRange(@($unlock,$changepass,$TextBox1,$TextBox2,$Label1,$Label3,$Label4,$employeenum,$Info,$Label5,$Label6,$Label7,$Label2,$Label8,$Label9,$Button1,$TextBox3,$Label10,$Button2,$TextBox4,$ComboBox1))
+$Site                            = New-Object system.Windows.Forms.Button
+$Site.BackColor                  = "#8bc29a"
+$Site.text                       = "Add to Site Groups"
+$Site.width                      = 90
+$Site.height                     = 50
+$Site.location                   = New-Object System.Drawing.Point(586,31)
+$Site.Font                       = 'Microsoft Sans Serif,10'
+
+$Form.controls.AddRange(@($unlock,$changepass,$TextBox1,$TextBox2,$Label1,$Label3,$Label4,$employeenum,$Info,$Label5,$Label6,$Label7,$Label2,$Label8,$Label9,$Button1,$TextBox3,$Label10,$Button2,$TextBox4,$ComboBox1,$Site))
 
 #region gui events {
 $unlock.Add_Click({ unlock-adaccount $textbox1.Text })
@@ -311,6 +457,9 @@ $button1.Add_Click({ set-aduser $TextBox1.Text -replace @{msnpallowdialin=$true}
 $button1.Add_Click({ $Label4.Text = $TextBox1.text + " now has VPN access"})
 $Button2.Add_Click({ Get-HCABitlocker $textbox3.Text }) 
 $Button2.Add_Click({ $textbox4.text = Get-HCABitlocker $textbox3.Text }) 
+$site.Add_Click({ Move-HCASite $ComboBox1.Text })
+
+
 #endregion events }
 
 #endregion GUI }
