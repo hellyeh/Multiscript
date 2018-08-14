@@ -1,0 +1,321 @@
+<# This form was created using POSHGUI.com  a free online gui designer for PowerShell
+.NAME
+    HELPDESK GUI
+#>
+
+
+
+function Get-HCABitlocker ($RecovInput)
+{
+    
+    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+#cd C:\users\a-lay\Documents
+
+import-module C:\users\a-lay\Documents\Get-BDERecoveryPassword.ps1 -force
+
+#$RecovInput = read-host -Prompt "
+    #Enter 8 character recovery ID eg. B16DCDD8 | OR |  Computername eg. HIT-PC02LRTC "
+if ($Recovinput.Length -eq 8)
+{
+    Get-BDERecoveryPassword -RecoveryGUID $RecovInput |select RecoveryPassword
+}
+
+#if ($Recovinput.Length -gt 8)
+#{
+#    "
+#    Recovery ID entered is MORE THAN 8 chars"
+#}
+
+if ($Recovinput.Length -lt 8)
+{
+    "
+    Recovery ID entered is LESS THAN 8 chars"
+}
+
+if ($Recovinput.StartsWith("hit-") -or $Recovinput.StartsWith("HIT-") )
+{
+    Get-BDERecoveryPassword -ComputerName $RecovInput |select RecoveryPassword
+}
+
+}
+
+
+function Get-HCAou ()
+{
+
+import-Module ActiveDirectory
+#$Branches = import-csv C:\users\a-edwardsbr\documents\Branches.csv
+
+
+$y = Get-ADUser $textbox1.text | select distinguishedname 
+
+if ($y -match "OU=(?<content>.*),OU=Managed Users,OU=HCMA,DC=hcma,DC=com,DC=au")
+{
+"This Users current OU is " + $matches['content']
+}
+
+}
+
+function Get-HCAEN ()
+
+{
+
+$x = get-aduser $TextBox1.Text -Properties employeenumber | select employeenumber
+
+$textbox4.text = $x.employeenumber
+
+}
+
+function Get-HCALO ()
+
+{
+
+$lo = get-aduser $TextBox1.Text -Properties lockedout | select lockedout
+
+$label2.text = "Current lockout status: " + $lo.lockedout 
+
+
+
+}
+
+function Get-HCAAE ()
+
+{
+
+$AE = get-aduser $TextBox1.Text -Properties AccountExpirationDate | select AccountExpirationDate
+
+$label6.text = "Account Expiration Date: " + $AE.AccountExpirationDate 
+
+
+
+}
+
+function Get-HCAPE ()
+
+{
+
+$PE = get-aduser $TextBox1.Text -Properties PasswordExpired | select PasswordExpired
+
+$label7.text = "Password Expirey Status: " + $PE.PasswordExpired 
+
+
+
+}
+
+function Get-HCACreated ()
+
+{
+
+$CR = get-aduser $TextBox1.Text -Properties created | select created
+
+$label8.text = "Account creation date: " + $CR.created 
+
+
+
+}
+
+
+
+
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Application]::EnableVisualStyles()
+
+#region begin GUI{ 
+
+$Form                            = New-Object system.Windows.Forms.Form
+$Form.ClientSize                 = '700,600'
+$Form.text                       = "Service Desk"
+$Form.BackColor                  = "#9299b3"
+$Form.TopMost                    = $false
+
+$unlock                          = New-Object system.Windows.Forms.Button
+$unlock.BackColor                = "#ff0000"
+$unlock.text                     = "Unlock"
+$unlock.width                    = 60
+$unlock.height                   = 30
+$unlock.location                 = New-Object System.Drawing.Point(48,122)
+$unlock.Font                     = 'Microsoft Sans Serif,10'
+$unlock.ForeColor                = "#ffffff"
+
+$changepass                      = New-Object system.Windows.Forms.Button
+$changepass.BackColor            = "#0094ff"
+$changepass.text                 = "Change Password"
+$changepass.width                = 130
+$changepass.height               = 30
+$changepass.location             = New-Object System.Drawing.Point(125,122)
+$changepass.Font                 = 'Microsoft Sans Serif,10'
+$changepass.ForeColor            = "#ffffff"
+
+$TextBox1                        = New-Object system.Windows.Forms.TextBox
+$TextBox1.multiline              = $false
+$TextBox1.width                  = 100
+$TextBox1.height                 = 20
+$TextBox1.location               = New-Object System.Drawing.Point(49,41)
+$TextBox1.Font                   = 'Microsoft Sans Serif,10'
+
+$TextBox2                        = New-Object system.Windows.Forms.TextBox
+$TextBox2.multiline              = $false
+$TextBox2.width                  = 100
+$TextBox2.height                 = 20
+$TextBox2.location               = New-Object System.Drawing.Point(166,41)
+$TextBox2.Font                   = 'Microsoft Sans Serif,10'
+
+$Label1                          = New-Object system.Windows.Forms.Label
+$Label1.text                     = "Username"
+$Label1.AutoSize                 = $true
+$Label1.width                    = 25
+$Label1.height                   = 10
+$Label1.location                 = New-Object System.Drawing.Point(51,14)
+$Label1.Font                     = 'Microsoft Sans Serif,10'
+$Label1.ForeColor                = "#ffffff"
+
+$Label3                          = New-Object system.Windows.Forms.Label
+$Label3.text                     = "Password"
+$Label3.AutoSize                 = $true
+$Label3.width                    = 25
+$Label3.height                   = 10
+$Label3.location                 = New-Object System.Drawing.Point(166,14)
+$Label3.Font                     = 'Microsoft Sans Serif,10'
+$Label3.ForeColor                = "#ffffff"
+
+$Label4                          = New-Object system.Windows.Forms.Label
+$Label4.AutoSize                 = $true
+$Label4.width                    = 25
+$Label4.height                   = 10
+$Label4.location                 = New-Object System.Drawing.Point(51,278)
+$Label4.Font                     = 'Microsoft Sans Serif,10'
+$Label4.ForeColor                = "#ffffff"
+
+$employeenum                     = New-Object system.Windows.Forms.Button
+$employeenum.BackColor           = "#11da46"
+$employeenum.text                = "Emp Num"
+$employeenum.width               = 90
+$employeenum.height              = 30
+$employeenum.location            = New-Object System.Drawing.Point(273,122)
+$employeenum.Font                = 'Microsoft Sans Serif,10'
+
+$Info                            = New-Object system.Windows.Forms.Button
+$Info.BackColor                  = "#e981e2"
+$Info.text                       = "Info"
+$Info.width                      = 60
+$Info.height                     = 30
+$Info.location                   = New-Object System.Drawing.Point(387,122)
+$Info.Font                       = 'Microsoft Sans Serif,10'
+
+$Label5                          = New-Object system.Windows.Forms.Label
+$Label5.AutoSize                 = $true
+$Label5.width                    = 25
+$Label5.height                   = 10
+$Label5.location                 = New-Object System.Drawing.Point(51,301)
+$Label5.Font                     = 'Microsoft Sans Serif,10'
+
+$Label6                          = New-Object system.Windows.Forms.Label
+$Label6.AutoSize                 = $true
+$Label6.width                    = 25
+$Label6.height                   = 10
+$Label6.location                 = New-Object System.Drawing.Point(51,330)
+$Label6.Font                     = 'Microsoft Sans Serif,10'
+
+$Label7                          = New-Object system.Windows.Forms.Label
+$Label7.AutoSize                 = $true
+$Label7.width                    = 25
+$Label7.height                   = 10
+$Label7.location                 = New-Object System.Drawing.Point(51,358)
+$Label7.Font                     = 'Microsoft Sans Serif,10'
+
+$Label2                          = New-Object system.Windows.Forms.Label
+$Label2.AutoSize                 = $true
+$Label2.width                    = 25
+$Label2.height                   = 10
+$Label2.location                 = New-Object System.Drawing.Point(49,382)
+$Label2.Font                     = 'Microsoft Sans Serif,10'
+
+$Label8                          = New-Object system.Windows.Forms.Label
+$Label8.AutoSize                 = $true
+$Label8.width                    = 25
+$Label8.height                   = 10
+$Label8.location                 = New-Object System.Drawing.Point(49,411)
+$Label8.Font                     = 'Microsoft Sans Serif,10'
+
+$Label9                          = New-Object system.Windows.Forms.Label
+$Label9.AutoSize                 = $true
+$Label9.width                    = 25
+$Label9.height                   = 10
+$Label9.location                 = New-Object System.Drawing.Point(52,437)
+$Label9.Font                     = 'Microsoft Sans Serif,10'
+
+$Button1                         = New-Object system.Windows.Forms.Button
+$Button1.BackColor               = "#00e6ff"
+$Button1.text                    = "Allow VPN"
+$Button1.width                   = 90
+$Button1.height                  = 30
+$Button1.location                = New-Object System.Drawing.Point(460,122)
+$Button1.Font                    = 'Microsoft Sans Serif,10'
+
+$TextBox3                        = New-Object system.Windows.Forms.TextBox
+$TextBox3.multiline              = $false
+$TextBox3.width                  = 100
+$TextBox3.height                 = 20
+$TextBox3.location               = New-Object System.Drawing.Point(289,41)
+$TextBox3.Font                   = 'Microsoft Sans Serif,10'
+
+$Label10                         = New-Object system.Windows.Forms.Label
+$Label10.text                    = "Computer Name"
+$Label10.AutoSize                = $true
+$Label10.width                   = 25
+$Label10.height                  = 10
+$Label10.location                = New-Object System.Drawing.Point(289,14)
+$Label10.Font                    = 'Microsoft Sans Serif,10'
+$Label10.ForeColor               = "#ffffff"
+
+$Button2                         = New-Object system.Windows.Forms.Button
+$Button2.BackColor               = "#ffadad"
+$Button2.text                    = "BitLock"
+$Button2.width                   = 60
+$Button2.height                  = 30
+$Button2.location                = New-Object System.Drawing.Point(563,122)
+$Button2.Font                    = 'Microsoft Sans Serif,10'
+
+$TextBox4                        = New-Object system.Windows.Forms.TextBox
+$TextBox4.multiline              = $false
+$TextBox4.width                  = 564
+$TextBox4.height                 = 20
+$TextBox4.location               = New-Object System.Drawing.Point(51,453)
+$TextBox4.Font                   = 'Microsoft Sans Serif,10'
+
+$ComboBox1                       = New-Object system.Windows.Forms.ComboBox
+$ComboBox1.text                  = "comboBox"
+$ComboBox1.width                 = 100
+$ComboBox1.height                = 20
+@(‘Bunbury’,’Adelaide’,’Adelaide Reman Centre’,’Albury’,’Boddington 2’,’Brisbane’,’Brockman4’,’Canberra’,’Dalby’,’Darwin’,’Emerald’,’Glendell 2’,’Glendell-Liddell’,’Greystanes’,’Gunnedah’,’Kalgoorlie’,’Launceston’,’Mackay’,’Melbourne’,’Mount Isa’,’Mount Owen’,’Murrin Murrin’,’Muswellbrook’,’Newcastle’,’Perth’,’Perth Parts’,’Port Headland’,’Revesby’,’Somerton’,’Tom Price’,’Townsville’,’Wacol’) | ForEach-Object {[void] $ComboBox1.Items.Add($_)}
+$ComboBox1.location              = New-Object System.Drawing.Point(469,41)
+$ComboBox1.Font                  = 'Microsoft Sans Serif,10'
+
+$Form.controls.AddRange(@($unlock,$changepass,$TextBox1,$TextBox2,$Label1,$Label3,$Label4,$employeenum,$Info,$Label5,$Label6,$Label7,$Label2,$Label8,$Label9,$Button1,$TextBox3,$Label10,$Button2,$TextBox4,$ComboBox1))
+
+#region gui events {
+$unlock.Add_Click({ unlock-adaccount $textbox1.Text })
+$unlock.Add_Click({ $label4.Text = $textbox1.text+" has been unlocked"  })
+$employeenum.Add_Click({ Get-HCAEN })
+#$pass = $textbox2.Text
+
+$changepass.Add_Click({ Set-ADAccountPassword -Identity $textbox1.text -NewPassword (ConvertTo-SecureString -AsPlainText $TextBox2.Text -Force) })
+$changepass.Add_Click({ $label4.Text = $textbox1.text+" password has been changed to "+$TextBox2.Text  })
+$info.Add_Click({ $label5.Text = Get-HCAou $TextBox1.Text })
+$info.Add_Click({ Get-HCAAE $TextBox1.Text })
+$info.Add_Click({ Get-HCAPE $TextBox1.Text })
+$info.Add_Click({ Get-HCALO $TextBox1.Text })
+$info.Add_Click({ Get-HCACreated $TextBox1.Text })
+$button1.Add_Click({ set-aduser $TextBox1.Text -replace @{msnpallowdialin=$true}})
+$button1.Add_Click({ $Label4.Text = $TextBox1.text + " now has VPN access"})
+$Button2.Add_Click({ Get-HCABitlocker $textbox3.Text }) 
+$Button2.Add_Click({ $textbox4.text = Get-HCABitlocker $textbox3.Text }) 
+#endregion events }
+
+#endregion GUI }
+
+
+#Write your logic code here
+
+[void]$Form.ShowDialog()
