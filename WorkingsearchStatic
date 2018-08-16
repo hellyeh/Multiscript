@@ -1,0 +1,54 @@
+# Get the user's name
+# Figure out the standard form(s) of the username
+# Test in order to see if it exists, then exit when you know which one to use
+
+ $TestName = "Edwards, Brendan"
+
+ $Comma = $TestName.IndexOf(",")
+ $lastname = $TestName.Substring(0, $Comma)
+ $Firstname = $TestName.Substring($Comma + 2, $TestName.Length - $Comma - 2)
+ $F1 = $TestName.Substring($Comma + 2, 1)
+ $F2 = $TestName.Substring($Comma + 3, 1)
+ $F3 = $TestName.Substring($Comma + 4, 1)
+ $F4 = $TestName.Substring($Comma + 5, 1)
+
+# "Last name is '{0}'" -f $Last
+# "First name is '{0}'" -f $First
+
+
+#$lastname = "smith"
+
+#$F = "s"
+#$F2 = "t"
+
+$samFilter = "{0}*" -f $lastname
+$sam = get-aduser -filter { samaccountname -like $samFilter }
+$sam1name = $sam.samaccountname
+
+if ($sam.samaccountname -contains $lastname)
+{
+  $sam2Filter = "{0}{1}*" -f $lastname, $F1
+  $sam2 = get-aduser -filter { samaccountname -like $sam2Filter }
+} else {
+  $sam1name
+  return
+}
+
+$sam2name = $sam2.samaccountname
+
+if ($sam2name -contains "$lastname"+"$F1")
+{
+  $sam3Filter = "{0}{1}{2}" -f $lastname, $F1, $F2
+  $sam3 = get-aduser -filter { samaccountname -like $sam3Filter }
+} else {
+  $sam2name
+  return
+}
+
+$sam3name = $sam3.samaccountname
+if ($sam3name -ne $null)
+{
+  Write-Host "$sam3name"
+} else {
+  "Crap, something broke"
+}
